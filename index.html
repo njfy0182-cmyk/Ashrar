@@ -90,13 +90,48 @@ nav button.on{background:linear-gradient(0deg,rgba(var(--rgb),.6),transparent)}
 .sh{border-radius:26px 26px 0 0;border-top:3px solid transparent;border-image:linear-gradient(90deg,var(--r2),var(--r),var(--g3)) 1}
 .adx{border-radius:16px}.qw button,.si{border-radius:10px}.qw button.on{background:linear-gradient(135deg,var(--r),var(--g3));color:#fff}
 #gate>div{padding:26px 18px;border-radius:28px;border:1px solid transparent;background:linear-gradient(160deg,rgba(38,15,21,.9),rgba(12,6,8,.94)) padding-box,linear-gradient(135deg,var(--r),var(--r2),var(--g3)) border-box;box-shadow:0 22px 54px rgba(0,0,0,.75),0 0 44px rgba(var(--rgb),.35)}
+
+.sh.adm{padding:0;display:flex;flex-direction:column;height:92vh;max-width:600px;border-radius:28px 28px 0 0}
+.ah{display:flex;justify-content:space-between;align-items:center;padding:16px 16px 8px}.ah h3{margin:0}
+.at{display:flex;gap:6px;overflow-x:auto;padding:6px 12px 10px;border-bottom:1px solid #2b1a1f;scrollbar-width:none;flex:none}.at::-webkit-scrollbar{display:none}
+.at button{flex:none;min-width:68px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 8px;border:1px solid #3a2227;border-radius:16px;background:rgba(255,255,255,.03);color:var(--mut);font:inherit;font-size:11px;font-weight:700;transition:.2s}
+.at button span{font-size:19px;line-height:1}.at button.on{color:#fff;background:linear-gradient(135deg,var(--r2),var(--r),var(--g3));border-color:transparent;box-shadow:0 6px 16px rgba(var(--rgb),.5)}
+#ac{overflow-y:auto;padding:14px 16px 30px;flex:1;min-height:0}
+.mr{display:flex;align-items:center;gap:10px;padding:10px;margin-bottom:8px;border-radius:16px;background:linear-gradient(155deg,#241418,#130c0e);border:1px solid #2f1b20}.mr.ad{border-color:var(--g3)}
+.av{width:40px;height:40px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Lalezar;font-size:20px;background:linear-gradient(135deg,var(--r2),var(--r))}.av.g{background:linear-gradient(135deg,#fde68a,#d97706);color:#3b2305}
+.mi{flex:1;min-width:0}.mi b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mi small{color:var(--mut);font-size:11px}.mb{display:flex;gap:6px}
+.mb .ib,.mr>.ib{width:36px;height:36px;font-size:15px}.ib.on{background:linear-gradient(135deg,#fde68a,#d97706);color:#3b2305;border-color:transparent}
+.hn{font-size:12px;color:var(--mut);line-height:1.9;margin:6px 0 10px;background:rgba(255,255,255,.04);padding:8px 12px;border-radius:12px}
+.fm{background:#100a0c;border:1px solid #3a2227;border-radius:18px;padding:14px;margin:12px 0}.fm b{display:block;margin-bottom:8px;color:var(--g3)}.ck{display:block;font-size:13px;margin:4px 0 10px}.sx{width:auto;max-width:130px;margin:0;padding:8px}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.chips div{border-radius:16px;padding:12px 6px;text-align:center;background:linear-gradient(155deg,#2a161b,#130c0e);border:1px solid #3a2227}.chips b{display:block;font-size:16px;font-family:Lalezar;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chips span{font-size:10px;color:var(--mut)}
+.tb{border-radius:16px;overflow:hidden;background:#120b0d}.tb tr.top td{background:linear-gradient(90deg,rgba(var(--rgb),.28),transparent)}.tb th{background:#1b0f12;padding:10px 2px}
+.gm{padding:12px;border-radius:16px}.gm b{background:linear-gradient(135deg,var(--r2),var(--r));padding:6px 12px;border-radius:99px;min-width:64px;text-align:center;font-family:Lalezar;font-weight:400}
+header,nav{backdrop-filter:blur(14px)}.v.on .c,.v.on .rk,.v.on .tm,.v.on .an,.v.on .gm,.v.on .km{animation:in .45s backwards}
+
+#gate{overflow:hidden}#gate::before{content:"X";position:absolute;font-family:Lalezar;font-size:520px;line-height:1;color:rgba(var(--rgb),.1);bottom:-130px;left:-70px;pointer-events:none;animation:drift 9s ease-in-out infinite}
+@keyframes drift{50%{transform:translate(22px,-16px) scale(1.07)}}@keyframes pulse{50%{box-shadow:0 0 0 2px rgba(var(--rgb),.8),0 0 54px rgba(var(--rgb),.9)}}
+#gate>div{position:relative;z-index:1;backdrop-filter:blur(16px);animation:in .6s}
+.gl{width:128px;height:128px;margin:0 auto 12px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(var(--rgb),.5),transparent 72%);box-shadow:0 0 0 2px rgba(var(--rgb),.5),0 0 36px rgba(var(--rgb),.6);animation:pulse 3.5s ease-in-out infinite}
+#gate .xl{margin:0;width:92px;height:92px}.gs{color:var(--mut);font-size:13px;margin-bottom:20px}
+.fl{display:flex;align-items:center;gap:10px;background:#0c0708;border:1px solid #4a2a30;border-radius:16px;padding:0 14px;margin-bottom:10px;box-shadow:inset 0 2px 8px rgba(0,0,0,.7);transition:.2s}
+.fl:focus-within{border-color:var(--g3);box-shadow:0 0 0 3px rgba(var(--rgb),.35),inset 0 2px 8px rgba(0,0,0,.7)}.fl span{font-size:18px}
+.fl input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--bone);font:inherit;padding:14px 0}
+.or{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:12px;margin:14px 0}.or i{flex:1;height:1px;background:linear-gradient(90deg,transparent,#5a343b,transparent)}
+.bt.og{background:rgba(255,255,255,.03);border:1px solid var(--r);color:var(--bone);box-shadow:none}
 </style></head><body class="locked">
 <svg width="0" height="0" style="position:absolute"><symbol id="X" viewBox="0 0 100 100"><path d="M8 8h26l16 26L66 8h26L63 50l29 42H66L50 66 34 92H8l29-42z" fill="#b3141f"/><path d="M8 8h26l16 26L66 8h26L63 50l29 42H66L50 66 34 92H8l29-42z" fill="none" stroke="#fff" stroke-width="2" transform="translate(3 3)" opacity=".45"/></symbol></svg>
-<div id="gate"><div>
-<svg class="xl"><use href="#X"/></svg><h1 class="lz">ASHRAR</h1><p style="color:var(--mut);font-size:13px;margin-bottom:16px">ورود فقط برای اعضای کلن اشرار</p>
-<input class="in" id="gc" placeholder="کد عضویت شما" autocomplete="off"><input class="in" id="gk" type="password" placeholder="رمز شما" autocomplete="off">
-<button class="bt" onclick="login()">ورود</button><button class="bt g2" style="margin-top:8px" onclick="guest()">ورود مهمان (فقط تورنمنت)</button><div id="gm"></div><button class="lk" onclick="$('ga').classList.toggle('hide')">ورود مدیر</button>
-<div id="ga" class="hide"><input class="in" id="gp" type="password" placeholder="رمز مدیر"><button class="bt g2" onclick="adminIn()">ورود با رمز مدیر</button></div></div></div>
+<div id="gate"><div class="gc">
+<div class="gl"><svg class="xl"><use href="#X"/></svg></div>
+<h1 class="lz">ASHRAR</h1><p class="gs">ورود اعضای کلن</p>
+<label class="fl"><span>👤</span><input id="gc" placeholder="کد عضویت" autocomplete="off"></label>
+<label class="fl"><span>🔑</span><input id="gk" type="password" placeholder="رمز شما" autocomplete="off" onkeydown="if(event.key==='Enter')login()"></label>
+<button class="bt" onclick="login()">ورود به کلن</button>
+<div id="gm"></div>
+<div class="or"><i></i>یا<i></i></div>
+<button class="bt og" onclick="guest()">👁 ورود مهمان — فقط تورنمنت</button>
+<button class="lk" onclick="$('ga').classList.toggle('hide')">ورود مدیر</button>
+<div id="ga" class="hide"><label class="fl"><span>🛡</span><input id="gp" type="password" placeholder="رمز مدیر" onkeydown="if(event.key==='Enter')adminIn()"></label><button class="bt g2" onclick="adminIn()">ورود با رمز مدیر</button></div>
+</div></div>
 <header><svg class="xl"><use href="#X"/></svg><div class="ht"><h1 class="lz">ASHRAR</h1><span id="who">کلن اشرار</span></div><button class="ib hide" id="ab" onclick="openAdmin()">⚙</button><button class="ib" onclick="logout()" title="خروج">⏻</button></header>
 <main>
 <section class="v on" id="v0"><h2>اعضا</h2><input class="in" id="q" placeholder="جستجوی عضو..." oninput="rMem()"><div class="g" id="mem"></div></section>
@@ -108,4 +143,4 @@ nav button.on{background:linear-gradient(0deg,rgba(var(--rgb),.6),transparent)}
 <nav><button class="on" onclick="go(0)"><span>👥</span>اعضا</button><button onclick="go(1)"><span>🏆</span>برترین‌ها</button><button onclick="go(2)"><span>⚔</span>تیم‌ها</button><button onclick="go(3)"><span>📢</span>اعلان‌ها</button><button onclick="go(4)"><span>🥊</span>تورنمنت</button></nav>
 <div class="ov" id="pm" onclick="if(event.target===this)this.classList.remove('on')"><div class="sh" id="pb"></div></div>
 <div class="ov" id="am" onclick="if(event.target===this)this.classList.remove('on')"><div class="sh" id="ab2"></div></div>
-<script src="app.js?v=1"></script></body></html>
+<script src="app.js?v=2"></script></body></html>
