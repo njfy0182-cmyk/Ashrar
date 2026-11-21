@@ -22,19 +22,119 @@ function all(){applyCfg();rMem();rTop();rTm();rAn();rTr();rSt()}
 
 
 D.tr=D.tr||{};let tk='in',tv='ko',lgf='';
-const TK={in:'درون‌کلنی',out:'بین‌کلنی'},TV={ko:'🏆 حذفی',tb:'📊 جدول',lg:'📅 لیگ'},T=k=>D.tr[k]=D.tr[k]||{ps:[],ko:null,lg:null},EM='<div class="emp">هنوز ساخته نشده است.</div>';
-const tsel=k=>{tk=k;lgf='';rTr()},tsel2=v=>{tv=v;rTr()},rn=(i,R)=>{const l=R-1-i;return l===0?'فینال':l===1?'نیمه‌نهایی':l===2?'یک‌چهارم':'دور '+fa(i+1)};
-function rTr(){const gs=g('ash_sess','')==='__g';if(gs)tk='out';const t=T(tk),ad=own(),seg=(o,c,f)=>`<div class="seg">${Object.keys(o).map(x=>`<button class="${x===c?'on':''}" onclick="${f}('${x}')">${o[x]}</button>`).join('')}</div>`;
- let x=seg(gs?{out:TK.out}:TK,tk,'tsel')+seg(TV,tv,'tsel2');
- $('tr').innerHTML=x+tchips(t)+(tv==='ko'?vKO(t,ad):tv==='tb'?vTB(t):vLG(t,ad))}
-function genKO(){const t=T(tk),l=t.ps.slice();if(l.length<2){alert('حداقل ۲ شرکت‌کننده بنویس');return}let P=2;while(P<l.length)P*=2;const n=P/2,r0=[];for(let i=0;i<n;i++)r0.push({a:l[i]||'',b:l[n+i]||'',w:0});const R=[r0];for(let m=n/2;m>=1;m/=2)R.push(Array.from({length:m},()=>({a:'',b:'',w:0})));t.ko=R;r0.forEach((z,i)=>{if(z.a&&!z.b)win(0,i,1,1)});save();rTr()}
-const up=(R,r,m)=>{const z=R[r][m];z.w=0;const nx=R[r+1]&&R[r+1][m>>1];if(nx){nx[m%2?'b':'a']='';if(nx.w)up(R,r+1,m>>1)}};
-function win(r,m,s,q){const R=T(tk).ko,z=R[r][m];if(!(s===1?z.a:z.b))return;if(z.w===s)s=0;up(R,r,m);if(s){z.w=s;const nx=R[r+1]&&R[r+1][m>>1];if(nx)nx[m%2?'b':'a']=s===1?z.a:z.b}if(!q){save();rTr()}}
-function sn(r,m,k,v){const R=T(tk).ko,z=R[r][m];z[k]=v.trim();if(z.w===(k==='a'?1:2)){const nx=R[r+1]&&R[r+1][m>>1];if(nx)nx[m%2?'b':'a']=z[k]}save();rTr()}
-function vKO(t,ad){const R=t.ko;if(!R)return EM;const cl=z=>z.w?'':'',sl=(r,m,k)=>{const z=R[r][m],s=k==='a'?1:2,c=z.w===s?'w':z.w?'l':'';return ad?`<div class="sl ${c}"><input value="${esc(z[k])}" onchange="sn(${r},${m},'${k}',this.value)"><button onclick="win(${r},${m},${s})">✓</button></div>`:`<div class="sl ${c}"><span>${esc(z[k])||'—'}</span></div>`};
- const f=R[R.length-1][0],ch=f.w?(f.w===1?f.a:f.b):'';
- let x=(ch?`<div class="champ">👑 قهرمان: ${esc(ch)}</div>`:'')+`<div class="ko">${R.map((rd,r)=>`<div class="kr"><div class="kh">${rn(r,R.length)}</div>${rd.map((_,m)=>`<div class="km"><small class="mn">بازی ${fa(m+1)}</small>${sl(r,m,'a')}${sl(r,m,'b')}</div>`).join('')}</div>`).join('')}</div>`;
- if(ad)x+=`<div class="adx"><b>ثبت سریع برنده‌ها</b>${R.map((rd,r)=>rd.map((z,m)=>z.a&&z.b?`<div class="qw"><small>${rn(r,R.length)}</small><button class="${z.w===1?'on':''}" onclick="win(${r},${m},1)">${esc(z.a)}</button><button class="${z.w===2?'on':''}" onclick="win(${r},${m},2)">${esc(z.b)}</button></div>`:'').join('')).join('')}</div>`;return x}
+const TK={in:'درون‌کلنی',out:'بین‌کلنی'},TV={ko:'🏆 حذفی',tb:'📊 جدول',lg:'📅 لیگ',cl:'⭐ لیگ قهرمانان'},T=k=>D.tr[k]=D.tr[k]||{ps:[],ko:null,lg:null,cl:null},EM='<div class="emp">هنوز ساخته نشده است.</div>';
+const tsel=k=>{tk=k;lgf='';rTr()},tsel2=v=>{tv=v;rTr()},rn=(i,R)=>{const l=R-1-i;return l===0?'فینال':l===1?'نیمه‌نهایی':l===2?'یک‌چهارم':l===3?'یک‌هشتم':l===4?'یک‌شانزدهم':'دور '+fa(i+1)};
+const segH=(o,c,f,k)=>`<div class="seg ${k||''}">${Object.keys(o).map(x=>`<button class="${x===c?'on':''}" onclick="${f}('${x}')">${o[x]}</button>`).join('')}</div>`;
+function rTr(){const gs=g('ash_sess','')==='__g';if(gs)tk='out';const t=T(tk),ad=own();
+ $('tr').innerHTML=segH(gs?{out:TK.out}:TK,tk,'tsel')+segH(TV,tv,'tsel2','s4')+'<button class="bt g2 shb" onclick="shOpen()">📤 اشتراک‌گذاری تصویر</button>'+(tv==='cl'?vCL(t,ad):tchips(t)+(tv==='ko'?vKO(t,ad):tv==='tb'?vTB(t):vLG(t,ad)))}
+const mkR=r0=>{const R=[r0];for(let m=r0.length/2;m>=1;m/=2)R.push(Array.from({length:m},()=>({a:'',b:'',w:0,sa:null,sb:null})));return R};
+function genKO(){const t=T(tk),l=t.ps.slice();if(l.length<2){alert('حداقل ۲ شرکت‌کننده بنویس');return}let P=2;while(P<l.length)P*=2;const n=P/2,r0=[];for(let i=0;i<n;i++)r0.push({a:l[i]||'',b:l[n+i]||'',w:0,sa:null,sb:null});const R=mkR(r0);t.ko=R;r0.forEach((z,i)=>{if(z.a&&!z.b)winIn(R,0,i,1)});save();rTr()}
+const KR=()=>{const t=T(tk);return tv==='cl'?(t.cl&&t.cl.ko):t.ko};
+const up=(R,r,m)=>{const z=R[r][m];z.w=0;const nx=R[r+1]&&R[r+1][m>>1];if(nx){nx[m%2?'b':'a']='';nx.sa=nx.sb=null;if(nx.w)up(R,r+1,m>>1)}};
+function winIn(R,r,m,s){const z=R[r][m];if(!(s===1?z.a:z.b))return;if(z.w===s)s=0;up(R,r,m);if(s){z.w=s;const nx=R[r+1]&&R[r+1][m>>1];if(nx)nx[m%2?'b':'a']=s===1?z.a:z.b}}
+function win(r,m,s){winIn(KR(),r,m,s);save();rTr()}
+function sn(r,m,k,v){const R=KR(),z=R[r][m];z[k]=v.trim();if(z.w===(k==='a'?1:2)){const nx=R[r+1]&&R[r+1][m>>1];if(nx)nx[m%2?'b':'a']=z[k]}save();rTr()}
+function ks(r,m,k,v){const R=KR(),z=R[r][m];z[k==='a'?'sa':'sb']=v===''?null:Number(v);if(z.a&&z.b&&z.sa!=null&&z.sb!=null&&z.sa!==z.sb){const w=z.sa>z.sb?1:2;if(z.w!==w)winIn(R,r,m,w)}save();rTr()}
+const BG={CW:236,CH:96,GAP:64,SH:132,HD:46,PD:10},hue=n=>{let h=0;for(const c of String(n))h=(h*31+c.charCodeAt(0))%360;return`hsl(${h},55%,42%)`},ini=n=>(String(n).split('|').pop().replace(/[^A-Za-z0-9\u0600-\u06FF]/g,'').charAt(0)||'X').toUpperCase();
+function geo(R,a,b){const{CW,GAP,SH,HD,PD}=BG,cnt=[];let k=0;R.forEach(rd=>{cnt.push(k);k+=rd.length});const pos=[];for(let r=a;r<=b;r++){pos[r]=[];const x=PD+(b-r)*(CW+GAP);for(let m=0;m<R[r].length;m++)pos[r][m]={x,num:cnt[r]+m+1,cy:r===a?HD+(m+.5)*SH:(pos[r-1][2*m].cy+pos[r-1][2*m+1].cy)/2}}return{pos,cnt,W:PD*2+(b-a+1)*CW+(b-a)*GAP,H:HD+R[a].length*SH+8}}
+const slab=(G,R,r,m,k)=>{const z=R[r][m];return z[k]||(r>0?'برندهٔ دیدار '+fa(G.cnt[r-1]+2*m+(k==='b'?1:0)+1):k==='b'&&z.a?'BYE':'—')};
+function brHTML(R,ad,a,b){const G=geo(R,a,b),{CW,CH,GAP}=BG;let sv='',h='',c='';
+ for(let r=a;r<=b;r++){h+=`<div class="bh" style="left:${G.pos[r][0].x}px;width:${CW}px">${rn(r,R.length)}<u></u></div>`;
+  R[r].forEach((z,m)=>{const p=G.pos[r][m];
+   if(r>a)for(let k=0;k<2;k++){const q=G.pos[r-1][2*m+k],md=q.x-GAP/2;sv+=`<path d="M${q.x} ${q.cy}H${md}V${p.cy}H${p.x+CW}" stroke="${R[r-1][2*m+k].w?'#c9972a':'#34413d'}"/>`}
+   const row=k=>{const s=k==='a'?1:2,v=z[k],sc=k==='a'?z.sa:z.sb,cl=z.w===s?'w':z.w?'l':'',av=v?`<i class="bv" style="background:${hue(v)}">${esc(ini(v))}</i>`:'<i class="bv e"></i>',lb=slab(G,R,r,m,k);
+    return ad?`<div class="br ${cl}">${av}<input class="bn" value="${esc(v)}" placeholder="${esc(lb)}" onchange="sn(${r},${m},'${k}',this.value)"><input class="bs" type="number" value="${sc==null?'':sc}" placeholder="−" onchange="ks(${r},${m},'${k}',this.value)"><button class="bk" onclick="win(${r},${m},${s})">✓</button></div>`:`<div class="br ${cl}">${av}<span class="bn${v?'':' ph'}">${esc(lb)}</span><b class="bs">${sc==null?'−':fa(sc)}</b></div>`};
+   c+=`<div class="bm${z.a&&z.b?' on':''}" style="left:${p.x}px;top:${p.cy-CH/2}px"><small>دیدار ${fa(p.num)}</small>${row('a')}${row('b')}</div>`})}
+ return`<div class="bw"><div class="bc" style="width:${G.W}px;height:${G.H}px"><svg class="bsv" width="${G.W}" height="${G.H}" fill="none" stroke-width="2">${sv}</svg>${h}${c}</div></div>`}
+const chB=R=>{const f=R[R.length-1][0],ch=f.w?(f.w===1?f.a:f.b):'';return ch?`<div class="champ">👑 قهرمان: ${esc(ch)}</div>`:''};
+const quick=R=>`<div class="adx"><b>ثبت سریع برنده‌ها</b>${R.map((rd,r)=>rd.map((z,m)=>z.a&&z.b?`<div class="qw"><small>${rn(r,R.length)}</small><button class="${z.w===1?'on':''}" onclick="win(${r},${m},1)">${esc(z.a)}</button><button class="${z.w===2?'on':''}" onclick="win(${r},${m},2)">${esc(z.b)}</button></div>`:'').join('')).join('')}</div>`;
+const vBR=(R,ad)=>chB(R)+brHTML(R,ad,0,R.length-1)+(ad?quick(R):'');
+function vKO(t,ad){return t.ko?vBR(t.ko,ad):EM}
+
+const GN='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+function rrobin(l){l=l.slice();if(l.length%2)l.push(null);const n=l.length,G=[];for(let r=0;r<n-1;r++){for(let i=0;i<n/2;i++){const a=l[i],b=l[n-1-i];if(a&&b)G.push({r:r+1,a,b,sa:null,sb:null})}l.splice(1,0,l.pop())}return G}
+function genCL(sh){const t=T(tk),l=t.ps.slice();if(l.length<4){alert('حداقل ۴ شرکت‌کننده بنویس');return}if(t.cl&&!confirm('لیگ قهرمانان فعلی پاک و دوباره ساخته شود؟'))return;
+ if(sh)for(let i=l.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[l[i],l[j]]=[l[j],l[i]]}
+ const n=Math.ceil(l.length/4),gs=Array.from({length:n},(_,i)=>({n:'گروه '+GN[i%26]+(i>=26?fa(Math.floor(i/26)+1):''),ps:[]}));
+ l.forEach((p,i)=>{const row=Math.floor(i/n),c=i%n;gs[row%2?n-1-c:c].ps.push(p)});
+ gs.forEach(z=>z.g=rrobin(z.ps));t.cl={gs,ko:null};save();rTr()}
+function gstd(gr){const S={};gr.ps.forEach(n=>S[n]={n,m:0,w:0,d:0,l:0,gf:0,ga:0,pt:0});gr.g.forEach(z=>{if(z.sa==null||z.sb==null)return;const A=S[z.a],B=S[z.b];A.m++;B.m++;A.gf+=z.sa;A.ga+=z.sb;B.gf+=z.sb;B.ga+=z.sa;if(z.sa>z.sb){A.w++;A.pt+=3;B.l++}else if(z.sa<z.sb){B.w++;B.pt+=3;A.l++}else{A.d++;B.d++;A.pt++;B.pt++}});return Object.values(S).sort((a,b)=>b.pt-a.pt||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf)}
+function genCLKO(){const t=T(tk),c=t.cl;if(!c){alert('اول مرحله گروهی را بساز');return}
+ if(!c.gs.every(gr=>gr.g.every(z=>z.sa!=null&&z.sb!=null))&&!confirm('همه بازی‌های گروهی ثبت نشده‌اند. با وضعیت فعلی ساخته شود؟'))return;
+ const S=c.gs.map(gstd),F=S.map(s=>s[0].n),X=S.map(s=>s[1]?s[1].n:''),G=c.gs.length;let r0;
+ if(G>=2&&(G&(G-1))===0){const A=[],B=[];for(let i=0;i<G;i+=2){A.push([F[i],X[i+1]]);B.push([F[i+1],X[i]])}r0=A.concat(B).map(p=>({a:p[0],b:p[1],w:0,sa:null,sb:null}))}
+ else{const l=F.concat(X.slice().reverse());let P=2;while(P<l.length)P*=2;r0=[];for(let i=0;i<P/2;i++)r0.push({a:l[i]||'',b:l[P-1-i]||'',w:0,sa:null,sb:null})}
+ const R=mkR(r0);c.ko=R;r0.forEach((z,i)=>{if(z.a&&!z.b)winIn(R,0,i,1)});save();rTr()}
+function scg(gi,i,k,v){T(tk).cl.gs[gi].g[i][k]=v===''?null:Number(v);save();rTr()}
+function vCL(t,ad){const c=t.cl;if(!c)return EM;let d=0,tt=0;c.gs.forEach(gr=>gr.g.forEach(z=>{tt++;if(z.sa!=null&&z.sb!=null)d++}));
+ const R=c.ko,f=R&&R[R.length-1][0],ch=f&&f.w?(f.w===1?f.a:f.b):'—';
+ let x=`<div class="chips"><div><b>${fa(c.gs.length)}</b><span>گروه</span></div><div><b>${fa(d)}/${fa(tt)}</b><span>بازی گروهی</span></div><div><b>${esc(ch)}</b><span>قهرمان</span></div></div><div class="bar" style="margin:0 0 14px"><i style="width:${tt?d/tt*100:0}%"></i></div><p class="hn" style="margin-top:0">دو تیم اول هر گروه به مرحله حذفی صعود می‌کنند.</p>`;
+ x+=c.gs.map((gr,gi)=>{const L=gstd(gr);return`<div class="gcd"><h4>${esc(gr.n)}</h4><table class="tb"><tr><th>#</th><th>نام</th><th>بازی</th><th>برد</th><th>مس</th><th>باخت</th><th>تفاضل</th><th>امتیاز</th></tr>${L.map((r,i)=>`<tr class="${i<2?'top':''}"><td>${fa(i+1)}</td><td>${esc(r.n)}</td><td>${fa(r.m)}</td><td>${fa(r.w)}</td><td>${fa(r.d)}</td><td>${fa(r.l)}</td><td>${fa(r.gf-r.ga)}</td><td><b>${fa(r.pt)}</b></td></tr>`).join('')}</table>
+ ${gr.g.map((z,i)=>{const sc=ad?`<input type="number" class="si" value="${z.sa==null?'':z.sa}" onchange="scg(${gi},${i},'sa',this.value)"><b>:</b><input type="number" class="si" value="${z.sb==null?'':z.sb}" onchange="scg(${gi},${i},'sb',this.value)">`:(z.sa==null?'<b>—</b>':`<b>${fa(z.sa)} : ${fa(z.sb)}</b>`);return`<div class="gm"><small>دور ${fa(z.r)}</small><span>${esc(z.a)}</span>${sc}<span>${esc(z.b)}</span></div>`}).join('')}</div>`}).join('');
+ x+='<h2 class="h2s">مرحله حذفی</h2>'+(R?vBR(R,ad):'<div class="emp">بعد از پایان گروه‌ها، مدیر حذفی را می‌سازد.</div>');return x}
+
+/* ---------- اشتراک‌گذاری تصویر ---------- */
+let sh={p:'ga',a:0,b:99,r:'all'},shCv=null;
+const FF="'Noto Sans Arabic',Tahoma,sans-serif",rtl=s=>/[؀-ۿ]/.test(s);
+function tx(c,s,x,y,o){o=o||{};s=String(s);c.font=`${o.w||600} ${o.sz||14}px ${FF}`;c.fillStyle=o.col||'#f2ece0';c.textAlign=o.al||'right';c.textBaseline='middle';c.direction=rtl(s)?'rtl':'ltr';
+ if(o.max){const f=s;while(s.length>1&&c.measureText(s).width>o.max)s=s.slice(0,-1);if(s!==f)s=s.slice(0,-1)+'…'}c.fillText(s,x,y)}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+const acc=()=>AC[D.cfg.ac]||AC[0];
+function dBR(c,R,a,b,ox){const G=geo(R,a,b),{CW,CH,GAP}=BG;c.save();c.translate(ox,0);c.lineWidth=2;c.lineJoin='round';
+ for(let r=a;r<=b;r++)R[r].forEach((z,m)=>{const p=G.pos[r][m];if(r>a)for(let k=0;k<2;k++){const q=G.pos[r-1][2*m+k],md=q.x-GAP/2;c.strokeStyle=R[r-1][2*m+k].w?'#c9972a':'#34413d';c.beginPath();c.moveTo(q.x,q.cy);c.lineTo(md,q.cy);c.lineTo(md,p.cy);c.lineTo(p.x+CW,p.cy);c.stroke()}});
+ for(let r=a;r<=b;r++){const x0=G.pos[r][0].x;tx(c,rn(r,R.length),x0+CW/2,16,{al:'center',col:'#f5b301',w:800,sz:15});c.fillStyle='#f5b301';c.fillRect(x0+CW/2-28,30,56,2);
+  R[r].forEach((z,m)=>{const p=G.pos[r][m],top=p.cy-CH/2;tx(c,'دیدار '+fa(p.num),p.x+CW-2,top-11,{sz:11,col:'#9aa3a0',w:700});
+   rr(c,p.x,top,CW,CH,12);c.fillStyle='#151819';c.fill();c.lineWidth=1.5;c.strokeStyle=z.a&&z.b?'#a8832a':'#3a403d';c.stroke();
+   c.strokeStyle='#2a2f2d';c.lineWidth=1;c.beginPath();c.moveTo(p.x+1,top+CH/2);c.lineTo(p.x+CW-1,top+CH/2);c.stroke();
+   ['a','b'].forEach((k,i)=>{const s=i+1,v=z[k],sc=k==='a'?z.sa:z.sb,cy=top+CH/4+i*CH/2;c.globalAlpha=z.w&&z.w!==s?.5:1;
+    if(v){rr(c,p.x+CW-38,cy-13,26,26,7);c.fillStyle=hue(v);c.fill();tx(c,ini(v),p.x+CW-25,cy+1,{al:'center',w:800,sz:13,col:'#fff'})}else{rr(c,p.x+CW-38,cy-13,26,26,7);c.fillStyle='#23282a';c.fill()}
+    tx(c,v||slab(G,R,r,m,k),p.x+CW-46,cy+1,{sz:13,w:z.w===s?800:600,col:v?(z.w===s?'#fff':'#e4e0d6'):'#6c7673',max:CW-100});
+    tx(c,sc==null?'−':fa(sc),p.x+24,cy+1,{al:'center',sz:14,w:800,col:z.w===s?'#f5b301':'#bbb'});c.globalAlpha=1})})}
+ c.restore()}
+function dGrid(c,x,y,W,heads,rows,cw,hl,RH,HH){const fx=cw.reduce((t,v)=>t+(v||0),0),fl=W-20-fx;c.save();rr(c,x,y,W,HH+rows.length*RH,14);c.clip();c.fillStyle='#120b0d';c.fillRect(x,y,W,HH+rows.length*RH);c.fillStyle='#1b0f12';c.fillRect(x,y,W,HH);
+ const line=(arr,yy,o)=>{let xr=x+W-10;arr.forEach((s,i)=>{const w=cw[i]||fl;if(i===1)tx(c,s,xr-6,yy,Object.assign({al:'right',max:w-10},o));else tx(c,s,xr-w/2,yy,Object.assign({al:'center'},o));xr-=w})};
+ line(heads,y+HH/2,{sz:11,col:acc()[3],w:800});
+ rows.forEach((r,i)=>{const yy=y+HH+i*RH;if(hl&&hl(i)){c.fillStyle=`rgba(${acc()[2]},.3)`;c.fillRect(x,yy,W,RH)}c.fillStyle='#222';c.fillRect(x,yy+RH-1,W,1);line(r,yy+RH/2+1,{sz:13,col:'#f2ece0',w:700})});c.restore()}
+function dMatch(c,x,y,W,z,h){rr(c,x,y,W,h,12);c.fillStyle='#1c1114';c.fill();c.strokeStyle='#3a2227';c.lineWidth=1;c.stroke();const m=y+h/2+1;
+ tx(c,z.a,x+W-14,m,{sz:13,w:700,max:W/2-56});tx(c,z.b,x+14,m,{al:'left',sz:13,w:700,max:W/2-56});
+ rr(c,x+W/2-34,m-14,68,26,13);const g=c.createLinearGradient(x+W/2-34,0,x+W/2+34,0);g.addColorStop(0,acc()[1]);g.addColorStop(1,acc()[0]);c.fillStyle=g;c.fill();
+ tx(c,z.sa==null||z.sb==null?'—':fa(z.sa)+' : '+fa(z.sb),x+W/2,m,{al:'center',sz:13,w:800,col:'#fff'})}
+const gh=gr=>40+28+gr.ps.length*34+12+gr.g.length*32+14;
+function dGroup(c,gr,x,y,w){const h=gh(gr),L=gstd(gr);rr(c,x,y,w,h,18);c.fillStyle='#150d10';c.fill();c.strokeStyle='#3a2227';c.lineWidth=1;c.stroke();
+ tx(c,gr.n,x+w-16,y+21,{sz:17,w:800,col:'#f5b301'});tx(c,'صعود: دو تیم اول',x+16,y+21,{al:'left',sz:11,col:'#8b8b92'});
+ dGrid(c,x+10,y+40,w-20,['#','نام','بازی','برد','مس','باخت','تفاضل','امتیاز'],L.map((r,i)=>[fa(i+1),r.n,fa(r.m),fa(r.w),fa(r.d),fa(r.l),fa(r.gf-r.ga),fa(r.pt)]),[30,0,40,34,34,40,48,48],i=>i<2,34,28);
+ let yy=y+40+28+gr.ps.length*34+12;gr.g.forEach(z=>{dMatch(c,x+10,yy,w-20,z,28);yy+=32});return h}
+function shPlan(){const t=T(tk),P=24;
+ if(tv==='ko'||(tv==='cl'&&sh.p==='ko')){const R=tv==='ko'?t.ko:t.cl&&t.cl.ko;if(!R)return null;const b=Math.min(sh.b,R.length-1),a=Math.min(sh.a,b),G=geo(R,a,b);return{T:'حذفی',W:Math.max(G.W+2*P-2*BG.PD,340),H:G.H,draw:(c,W)=>dBR(c,R,a,b,Math.max(P-BG.PD,(W-G.W)/2))}}
+ if(tv==='tb'){if(!t.lg)return null;const L=std(t);return{T:'جدول امتیازات',W:640,H:34+L.length*40+8,draw:(c,W)=>dGrid(c,P,0,W-2*P,['#','نام','بازی','برد','مس','باخت','تفاضل','امتیاز'],L.map((r,i)=>[fa(i+1),r.n,fa(r.m),fa(r.w),fa(r.d),fa(r.l),fa(r.gf-r.ga),fa(r.pt)]),[40,0,52,44,44,52,60,62],i=>i<3&&L[i].m,40,34)}}
+ if(tv==='lg'){if(!t.lg)return null;const rs=[...new Set(t.lg.g.map(z=>z.r))].sort((a,b)=>a-b).filter(r=>sh.r==='all'||String(r)===String(sh.r));const it=[];rs.forEach(r=>{it.push({h:r});t.lg.g.filter(z=>z.r===r).forEach(z=>it.push({z}))});
+  return{T:'برنامه و نتایج لیگ',W:640,H:it.reduce((s,i)=>s+(i.h?36:46),0),draw:(c,W)=>{let y=0;it.forEach(i=>{if(i.h){tx(c,'دور '+fa(i.h),W-P,y+16,{sz:16,w:800,col:'#f5b301'});y+=36}else{dMatch(c,P,y,W-2*P,i.z,40);y+=46}})}}}
+ if(tv==='cl'){const c0=t.cl;if(!c0)return null;const gs=sh.p==='ga'?c0.gs:[c0.gs[+String(sh.p).slice(1)]||c0.gs[0]],two=gs.length>1,cw=460,W=two?P*3+cw*2:cw+P*2,rows=[];for(let i=0;i<gs.length;i+=two?2:1)rows.push(gs.slice(i,i+(two?2:1)));
+  return{T:'لیگ قهرمانان',W,H:rows.reduce((s,r)=>s+Math.max(...r.map(gh))+16,0)-16,draw:c=>{let y=0;rows.forEach(r=>{r.forEach((gr,i)=>dGroup(c,gr,W-P-cw-i*(cw+P),y,cw));y+=Math.max(...r.map(gh))+16})}}}
+ return null}
+const ldImg=src=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});
+async function shMake(){const pl=shPlan();if(!pl)return null;try{await Promise.all([document.fonts.load('800 14px "Noto Sans Arabic"'),document.fonts.load('600 14px "Noto Sans Arabic"'),document.fonts.load('20px Lalezar')])}catch(e){}
+ const lg=await ldImg('logo.png'),S=2,HD=96,FT=44,W=pl.W,H=HD+pl.H+FT+8,cv=document.createElement('canvas');cv.width=W*S;cv.height=H*S;const c=cv.getContext('2d'),a=acc();c.scale(S,S);
+ c.fillStyle='#0a0607';c.fillRect(0,0,W,H);let g=c.createRadialGradient(W,0,10,W,0,W*.9);g.addColorStop(0,`rgba(${a[2]},.5)`);g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(0,0,W,H);
+ g=c.createRadialGradient(0,H,10,0,H,W*.8);g.addColorStop(0,`rgba(${a[2]},.32)`);g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(0,0,W,H);
+ if(lg){c.save();c.beginPath();c.arc(W-52,HD/2,32,0,7);c.clip();c.drawImage(lg,W-84,HD/2-32,64,64);c.restore();c.strokeStyle=a[3];c.lineWidth=2;c.beginPath();c.arc(W-52,HD/2,32,0,7);c.stroke()}
+ const nx=lg?W-98:W-24;tx(c,NM(D.cfg.nm),nx,HD/2-12,{sz:28,w:800,col:'#fff'});tx(c,TK[tk]+' · '+pl.T,nx,HD/2+16,{sz:13,col:a[3],w:700});
+ g=c.createLinearGradient(0,0,W,0);g.addColorStop(0,a[1]);g.addColorStop(.5,a[0]);g.addColorStop(1,a[3]);c.fillStyle=g;c.fillRect(0,HD-2,W,3);
+ c.save();c.translate(0,HD+16);pl.draw(c,W);c.restore();
+ c.fillStyle=g;c.fillRect(0,H-FT,W,2);tx(c,NM(D.cfg.nm)+' · '+new Date().toLocaleDateString('fa-IR'),W/2,H-FT/2+1,{al:'center',sz:12,col:'#8b8b92',w:600});return cv}
+function shUI(){const t=T(tk),op=(v,l,cur)=>`<option value="${v}" ${String(v)===String(cur)?'selected':''}>${esc(l)}</option>`;let ctl='';
+ const R=tv==='ko'?t.ko:tv==='cl'&&sh.p==='ko'?t.cl&&t.cl.ko:null;
+ if(tv==='cl'&&t.cl)ctl+=`<select class="in" onchange="shSet('p',this.value)">${op('ga','همه گروه‌ها',sh.p)}${t.cl.gs.map((z,i)=>op('g'+i,z.n,sh.p)).join('')}${op('ko','مرحله حذفی',sh.p)}</select>`;
+ if(R){const n=R.length,b=Math.min(sh.b,n-1),a=Math.min(sh.a,b);ctl+=`<div class="row"><select class="in" onchange="shSet('a',+this.value)">${R.map((_,i)=>i<=b?op(i,'از '+rn(i,n),a):'').join('')}</select><select class="in" onchange="shSet('b',+this.value)">${R.map((_,i)=>i>=a?op(i,'تا '+rn(i,n),b):'').join('')}</select></div>`}
+ if(tv==='lg'&&t.lg)ctl+=`<select class="in" onchange="shSet('r',this.value)">${op('all','همه دورها',sh.r)}${[...new Set(t.lg.g.map(z=>z.r))].sort((a,b)=>a-b).map(r=>op(r,'دور '+fa(r),sh.r)).join('')}</select>`;
+ $('shb').innerHTML=`<div class="ah" style="padding:0 0 8px"><h3>📤 اشتراک‌گذاری تصویر</h3><button class="ib" onclick="$('shm').classList.remove('on')">✕</button></div><p class="hn" style="margin-top:0">بخشی از جدول را که می‌خواهی انتخاب کن و تصویرش را دانلود کن.</p>${ctl}<div class="shp"><div class="emp" id="shl">در حال ساخت تصویر...</div><img id="shi" alt=""></div><div class="row"><button class="bt" onclick="shSave()">⬇ دانلود تصویر</button>${navigator.canShare?'<button class="bt g2" onclick="shSend()">📤 ارسال</button>':''}</div>`;shDraw()}
+function shSet(k,v){sh[k]=v;shUI()}
+async function shDraw(){const im=$('shi'),l=$('shl');shCv=null;try{const cv=await shMake();if(!cv){l.textContent='اول باید جدول این بخش ساخته شود.';return}shCv=cv;im.src=cv.toDataURL('image/png');l.style.display='none';im.style.display='block'}catch(e){l.textContent='ساخت تصویر ناموفق بود.'}}
+function shOpen(){const gs=g('ash_sess','')==='__g';if(gs)tk='out';sh={p:tv==='cl'?'ga':'ko',a:0,b:99,r:'all'};shUI();$('shm').classList.add('on')}
+const shBlob=()=>new Promise(r=>shCv?shCv.toBlob(r,'image/png'):r(null)),shName=()=>'ashrar-'+tk+'-'+tv+'-'+Date.now().toString(36)+'.png';
+async function shSave(){const b=await shBlob();if(!b){alert('تصویر هنوز آماده نیست');return}const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=shName();a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+async function shSend(){const b=await shBlob();if(!b)return;const f=new File([b],shName(),{type:'image/png'});try{if(navigator.canShare({files:[f]}))await navigator.share({files:[f]});else shSave()}catch(e){}}
+
 function genLG(){const t=T(tk),l=t.ps.slice();if(l.length<2){alert('حداقل ۲ شرکت‌کننده بنویس');return}if(l.length%2)l.push(null);const n=l.length,G=[];for(let r=0;r<n-1;r++){for(let i=0;i<n/2;i++){const a=l[i],b=l[n-1-i];if(a&&b)G.push({r:r+1,a,b,sa:null,sb:null})}l.splice(1,0,l.pop())}t.lg={g:G};save();rTr()}
 function sg(i,k,v){T(tk).lg.g[i][k]=v===''?null:Number(v);save();rTr()}
 function nextG(G){const z=G.find(x=>x.sa==null||x.sb==null);return z?`<div class="nx"><small>⏭ بازی بعدی · دور ${fa(z.r)}</small><div><b>${esc(z.a)}</b><i>VS</i><b>${esc(z.b)}</b></div></div>`:'<div class="nx"><small>✅ همه بازی‌ها انجام شد</small></div>'}
@@ -103,7 +203,7 @@ m(){const m=eid?by(eid):{},q=nm(mq),l=D.members.filter(x=>!q||nm(x.name+x.real).
  ${l.map(x=>`<div class="mr${x.adm?' ad':''}"><div class="av${x.adm?' g':''}">${esc(ltr(x))}</div><div class="mi"><b>${esc(x.name)}${tag(x)}</b><small>${esc(x.role||'عضو')}${x.pw?'':' · <i style="color:#ff6b7d;font-style:normal">بدون رمز</i>'}</small></div><div class="mb"><button class="ib${x.adm?' on':''}" onclick="togA('${x.id}')">⭐</button><button class="ib" onclick="eid='${x.id}';showF=true;openAdmin()">✎</button><button class="ib" onclick="delM('${x.id}')">🗑</button></div></div>`).join('')||'<div class="emp">عضوی نیست.</div>'}`},
 t(){return`<p class="hn">اسم تیم‌ها را بنویس و برای هر عضو، تیمش را انتخاب کن.</p>${D.teams.map((t,i)=>`<input class="in" value="${esc(t)}" onchange="D.teams[${i}]=this.value||'تیم ${i+1}';save();all()">`).join('')}${D.members.map(x=>`<div class="mr"><div class="av">${esc(ltr(x))}</div><div class="mi"><b>${esc(x.name)}</b></div><select class="in sx" onchange="by('${x.id}').team=this.value;save();all()"><option value="">بدون تیم</option>${D.teams.map((t,i)=>`<option value="${i}" ${String(x.team)===String(i)?'selected':''}>${esc(t)}</option>`).join('')}</select></div>`).join('')}`},
 a(){return`<div class="fm"><b>اعلان جدید</b><input class="in" id="an_t" placeholder="عنوان"><textarea class="in" id="an_b" rows="3" placeholder="متن اعلان"></textarea><button class="bt" onclick="addA()">انتشار اعلان</button></div>${D.ann.map(a=>`<div class="mr"><div class="av">📢</div><div class="mi"><b>${esc(a.title)}</b></div><button class="ib" onclick="delA('${a.id}')">🗑</button></div>`).join('')}`},
-x(){const t=T(tk);return`<div class="seg">${Object.keys(TK).map(k=>`<button class="${k===tk?'on':''}" onclick="tk='${k}';openAdmin()">${TK[k]}</button>`).join('')}</div><p class="hn">شرکت‌کننده‌ها را بنویس (هر خط یک نام) و جدول بساز. بعد در بخش «تورنمنت» اسم کادرها را ویرایش و برنده را ثبت کن.</p><textarea class="in" rows="6" onchange="T(tk).ps=this.value.split('\\n').map(z=>z.trim()).filter(Boolean);save()">${esc(t.ps.join('\n'))}</textarea>${tk==='in'?'<button class="bt g2" onclick="T(tk).ps=D.members.map(m=>m.name);save();openAdmin()">پر کردن با نام اعضا</button>':''}<div class="row" style="margin-top:10px"><button class="bt" onclick="genKO();openAdmin()">🏆 ساخت حذفی</button><button class="bt" onclick="genLG();openAdmin()">📅 ساخت لیگ</button></div><div class="row" style="margin-top:8px"><button class="bt g2" onclick="if(confirm('حذفی پاک شود؟')){T(tk).ko=null;save();rTr();openAdmin()}">پاک کردن حذفی</button><button class="bt g2" onclick="if(confirm('لیگ پاک شود؟')){T(tk).lg=null;save();rTr();openAdmin()}">پاک کردن لیگ</button></div>`},
+x(){const t=T(tk);return`<div class="seg">${Object.keys(TK).map(k=>`<button class="${k===tk?'on':''}" onclick="tk='${k}';openAdmin()">${TK[k]}</button>`).join('')}</div><p class="hn">شرکت‌کننده‌ها را بنویس (هر خط یک نام) و جدول بساز. بعد در بخش «تورنمنت» اسم کادرها را ویرایش و برنده را ثبت کن.</p><textarea class="in" rows="6" onchange="T(tk).ps=this.value.split('\\n').map(z=>z.trim()).filter(Boolean);save()">${esc(t.ps.join('\n'))}</textarea>${tk==='in'?'<button class="bt g2" onclick="T(tk).ps=D.members.map(m=>m.name);save();openAdmin()">پر کردن با نام اعضا</button>':''}<div class="row" style="margin-top:10px"><button class="bt" onclick="genKO();openAdmin()">🏆 ساخت حذفی</button><button class="bt" onclick="genLG();openAdmin()">📅 ساخت لیگ</button></div><div class="fm"><b>⭐ لیگ قهرمانان</b><p class="hn">گروه‌های ۴نفره از لیست شرکت‌کننده‌ها ساخته می‌شود و دو تیم اول هر گروه به حذفی می‌روند.</p><div class="row"><button class="bt" onclick="genCL(0);openAdmin()">ساخت گروه‌ها</button><button class="bt" onclick="genCL(1);openAdmin()">🎲 قرعه‌کشی</button></div><div class="row" style="margin-top:8px"><button class="bt" onclick="genCLKO();openAdmin()">🏁 ساخت حذفی از صعودکننده‌ها</button><button class="bt g2" onclick="if(confirm('لیگ قهرمانان پاک شود؟')){T(tk).cl=null;save();rTr();openAdmin()}">پاک کردن</button></div></div><div class="row" style="margin-top:8px"><button class="bt g2" onclick="if(confirm('حذفی پاک شود؟')){T(tk).ko=null;save();rTr();openAdmin()}">پاک کردن حذفی</button><button class="bt g2" onclick="if(confirm('لیگ پاک شود؟')){T(tk).lg=null;save();rTr();openAdmin()}">پاک کردن لیگ</button></div>`},
 s(){return cfgHTML()},
 p(){return`<p class="hn">رمز مدیر را عوض کن یا تغییرات را برای اعضا منتشر کن.</p><input class="in" id="np" placeholder="رمز جدید مدیر"><button class="bt g2" onclick="setAP()">تغییر رمز مدیر</button><div class="fm"><b>انتشار برای اعضا</b><p class="hn">${SERVER?'✅ تغییرات خودکار روی سرور ذخیره می‌شود و اعضا تا یک دقیقه بعد می‌بینند. این دکمه فقط برای نسخه پشتیبان است.':'اعضا فقط اطلاعات داخل فایل data.js را می‌بینند. بعد از هر تغییر، این دکمه را بزن و فایل دانلودشده را در گیت‌هاب جایگزین data.js کن.'}</p><button class="bt" onclick="dl()">⬇ دانلود data.js</button></div>`}};
 function togA(id){const m=by(id);m.adm=!m.adm;save();all();openAdmin()}
